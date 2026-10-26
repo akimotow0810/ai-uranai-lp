@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html class="dark" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>星のヒント | LINEで本格AI占い｜恋愛・仕事・お金の悩みに、今すぐ無料で</title>
+<meta name="description" content="恋も仕事もこれからのことも。LINEを開けばAI占い師『澪』がそっと寄り添い、今のあなたに必要な答えを照らします。友だち追加は無料・月10回まで無料鑑定・いつでも解約OK。">
+<meta property="og:title" content="星のヒント | LINEで本格AI占い">
+<meta property="og:description" content="LINEを開くだけ。AI占い師『澪』が7つの占術であなたを本格鑑定。友だち追加は無料。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://akimotow0810.github.io/ai-uranai-lp/static/lp/hero-bg.png">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#ffe390", "gold": "#f0c419", "rose": "#f2a9c4", "rose-soft": "#f7c9dc",
+                    "surface": "#190d2c", "on-background": "#eddcff", "background": "#190d2c",
+                    "surface-variant": "#3c2f4f", "surface-bright": "#403354",
+                    "surface-container-low": "#221534", "surface-container": "#261939",
+                    "surface-container-lowest": "#140726", "surface-container-high": "#312444",
+                    "primary-container": "#f0c419", "on-surface-variant": "#d1c6ac",
+                    "outline": "#9a9079", "on-surface": "#eddcff", "secondary": "#d0c0e8",
+                    "primary-fixed": "#ffe084", "error": "#ffb4ab", "outline-variant": "#4d4633",
+                },
+                spacing: { "container-max": "1120px", "gutter": "24px", "margin-mobile": "20px" },
+                fontFamily: {
+                    "headline": ["'Noto Serif JP'", "serif"],
+                    "body": ["'Noto Sans JP'", "sans-serif"],
+                    "hand": ["'Klee One'", "cursive"],
+                },
+            }
+        }
+    }
+</script>
+<style>
+    body { background-color: #190d2c; color: #eddcff; font-family: 'Noto Sans JP', sans-serif; -webkit-tap-highlight-color: transparent; }
+    h1,h2,h3 { font-family: 'Noto Serif JP', serif; }
+    .hand { font-family: 'Klee One', cursive; }
+    .glass-card { background: rgba(60,47,79,0.4); backdrop-filter: blur(12px); border: 1px solid rgba(240,196,25,0.28); }
+    .glass-soft { background: rgba(38,25,57,0.55); backdrop-filter: blur(8px); border: 1px solid rgba(209,198,172,0.15); }
+    .gold-text { background: linear-gradient(100deg,#ffe390,#f0c419 60%,#ffd257); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .rose-text { color: #f7c9dc; }
+    .astral-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; z-index: -1; animation: pulse 12s infinite alternate; }
+    @keyframes pulse { 0% { transform: scale(1); opacity: 0.18; } 100% { transform: scale(1.12); opacity: 0.38; } }
+    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes twinkle { 0%,100% { opacity:.25; } 50% { opacity:.9; } }
+    .cta { background: linear-gradient(180deg,#ffe27a,#f0c419); color:#1A0F2E; box-shadow: 0 8px 24px rgba(240,196,25,0.42), inset 0 1px 0 rgba(255,255,255,.5); }
+    .cta:active { transform: scale(.97); }
+    .kicker { display:inline-flex; align-items:center; gap:.4rem; color:#f7c9dc; font-size:.8rem; letter-spacing:.05em; }
+    .kicker::before,.kicker::after { content:"✦"; color:#ffe390; opacity:.7; font-size:.7rem; }
+    .free-stamp { background:#f2a9c4; color:#3a0f22; font-weight:700; border-radius:9999px; }
+    .bubble { position:relative; background: rgba(60,47,79,0.5); border:1px solid rgba(247,201,220,0.25); }
+    .bubble::after { content:""; position:absolute; left:28px; bottom:-9px; width:16px; height:16px; background:inherit; border-right:1px solid rgba(247,201,220,0.25); border-bottom:1px solid rgba(247,201,220,0.25); transform:rotate(45deg); }
+    .sec { padding-top: 64px; padding-bottom: 64px; }
+    @media (min-width:768px){ .sec { padding-top: 96px; padding-bottom: 96px; } }
+    html { scroll-behavior: smooth; }
+    details > summary { list-style:none; }
+    details > summary::-webkit-details-marker { display:none; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden pb-24 md:pb-0">
+
+<div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+  <div class="astral-blob bg-purple-600 w-[60vw] h-[60vw] top-[-15%] left-[-15%]"></div>
+  <div class="astral-blob bg-fuchsia-800 w-[50vw] h-[50vw] top-[35%] right-[-15%]"></div>
+  <div class="astral-blob bg-indigo-800 w-[45vw] h-[45vw] bottom-[-5%] left-[5%]"></div>
+</div>
+
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-md border-b border-outline-variant/20">
+  <div class="flex justify-between items-center px-margin-mobile md:px-gutter max-w-container-max mx-auto h-14 md:h-16">
+    <div class="font-headline text-lg md:text-xl text-primary font-bold tracking-tight">🔮 星のヒント</div>
+    <nav class="hidden md:flex gap-6 items-center text-sm">
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#worry">できること</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#methods">占術</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#pricing">料金</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#faq">FAQ</a>
+      <a class="cta px-5 py-2 rounded-full font-bold" href="https://lin.ee/OBc87Mb">無料ではじめる</a>
+    </nav>
+    <a class="md:hidden cta px-4 py-2 rounded-full font-bold text-sm" href="https://lin.ee/OBc87Mb">無料ではじめる</a>
+  </div>
+</header>
+
+<main class="flex-grow pt-14 md:pt-16">
+
+  <!-- Hero -->
+  <section class="relative min-h-[92vh] md:min-h-[94vh] flex flex-col items-center justify-center px-margin-mobile md:px-gutter text-center overflow-hidden">
+    <div class="absolute inset-0 z-[-1]">
+      <img class="w-full h-full object-cover opacity-50" src="static/lp/hero-bg.png" alt="星空と水晶玉">
+      <div class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/10 to-background"></div>
+    </div>
+    <div class="max-w-2xl space-y-6 z-10">
+      <p class="hand text-rose-soft text-base md:text-lg">その迷い、ひとりで抱えないで。</p>
+      <h1 class="text-[2.6rem] leading-[1.25] md:text-6xl font-bold">
+        あなたの毎日に、<br><span class="gold-text">星のヒント</span>を。
+      </h1>
+      <p class="text-on-surface-variant text-sm md:text-lg leading-relaxed">
+        恋も、仕事も、これからのことも。<br>
+        LINEを開けば、AI占い師『澪（みお）』がそっと寄り添い、<br class="hidden md:block">
+        今のあなたに必要な答えを照らします。
+      </p>
+      <div class="pt-2 flex flex-col items-center gap-3">
+        <a class="cta font-bold py-4 px-9 md:px-12 rounded-full text-base md:text-lg inline-flex items-center gap-2 w-full max-w-xs justify-center" href="https://lin.ee/OBc87Mb">
+          <span>🔮</span> 無料で澪に相談する
+        </a>
+        <div class="flex items-center gap-2 text-xs md:text-sm text-primary-fixed/90">
+          <span class="free-stamp px-2 py-0.5 text-[11px]">友だち追加無料</span>
+          <span>登録30秒 / いつでも解約OK</span>
+        </div>
+      </div>
+    </div>
+    <a href="#letter" class="absolute bottom-5 text-on-surface-variant/50"><span class="material-symbols-outlined animate-bounce">expand_more</span></a>
+  </section>
+
+  <!-- Trust bar -->
+  <section class="px-margin-mobile md:px-gutter -mt-5 relative z-10">
+    <div class="max-w-container-max mx-auto glass-card rounded-2xl py-5 px-3 grid grid-cols-4 gap-2 text-center">
+      <div><div class="text-xl md:text-3xl font-headline text-primary">7<span class="text-xs">種</span></div><p class="text-[10px] md:text-xs text-on-surface-variant mt-1">本格占術</p></div>
+      <div><div class="text-xl md:text-3xl font-headline text-primary">24<span class="text-xs">h</span></div><p class="text-[10px] md:text-xs text-on-surface-variant mt-1">いつでも</p></div>
+      <div><div class="text-xl md:text-3xl font-headline text-primary">¥0</div><p class="text-[10px] md:text-xs text-on-surface-variant mt-1">ではじめる</p></div>
+      <div><div class="text-xl md:text-3xl font-headline text-primary">LINE</div><p class="text-[10px] md:text-xs text-on-surface-variant mt-1">だけで完結</p></div>
+    </div>
+  </section>
+
+  <!-- Letter from Mio -->
+  <section class="sec px-margin-mobile md:px-gutter" id="letter">
+    <div class="max-w-3xl mx-auto">
+      <div class="glass-soft rounded-3xl p-7 md:p-12 relative border-l-4 border-l-primary/70">
+        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+          <img class="w-28 h-28 md:w-40 md:h-40 rounded-full object-cover border-2 border-primary/40 shrink-0 shadow-[0_0_30px_rgba(120,80,180,0.5)]" src="static/lp/mio.png" alt="AI占い師 澪">
+          <div class="space-y-4 text-center md:text-left">
+            <p class="kicker mx-auto md:mx-0">占い師 澪からのメッセージ</p>
+            <h2 class="text-xl md:text-2xl leading-relaxed">はじめまして、<span class="gold-text">澪（みお）</span>です。</h2>
+            <p class="hand text-[15px] md:text-lg leading-loose text-on-surface">
+              占いは、未来を言い当てるためのものじゃないと思っています。<br>
+              迷ったとき、そっと背中を押してくれる——そんな存在でありたい。<br>
+              うまく言葉にできない気持ちも、大丈夫。<br>
+              あなたのペースで、いつでも聞かせてくださいね。
+            </p>
+            <p class="hand text-primary text-right text-lg pt-1">― 澪</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Worries (speech bubbles) -->
+  <section class="sec px-margin-mobile md:px-gutter">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-10 md:mb-14 space-y-3">
+        <p class="kicker">こんな夜、ありませんか？</p>
+        <h2 class="text-2xl md:text-4xl leading-snug">眠れない夜、<br class="md:hidden">こんなこと考えていませんか？</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-7 max-w-2xl mx-auto">
+        <div class="bubble rounded-2xl p-5 text-sm md:text-base">「彼（彼女）の気持ちが、分からない…」</div>
+        <div class="bubble rounded-2xl p-5 text-sm md:text-base sm:mt-6">「この仕事、続けていいのかな」</div>
+        <div class="bubble rounded-2xl p-5 text-sm md:text-base">「最近、なんだかツイてない気がする」</div>
+        <div class="bubble rounded-2xl p-5 text-sm md:text-base sm:mt-6">「本音を話せる相手が、いない」</div>
+      </div>
+      <p class="hand text-center text-lg md:text-2xl mt-10 md:mt-14 rose-text">大丈夫。その気持ち、澪に話してみませんか？</p>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="sec px-margin-mobile md:px-gutter bg-surface-container-low/40" id="worry">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-10 md:mb-14 space-y-3">
+        <p class="kicker">どんな悩みでも</p>
+        <h2 class="text-2xl md:text-4xl">その悩み、『澪』に相談できます。</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3.5 md:gap-6">
+        <div class="glass-card rounded-2xl p-5 md:p-6 space-y-1.5 hover:border-rose/50 transition-colors"><span class="text-2xl md:text-3xl">💗</span><h3 class="text-base md:text-lg text-primary">恋愛・結婚</h3><p class="text-[11px] md:text-xs text-on-surface-variant leading-relaxed">片思い、復縁、相手の気持ち、結婚のタイミング。</p></div>
+        <div class="glass-card rounded-2xl p-5 md:p-6 space-y-1.5 hover:border-rose/50 transition-colors"><span class="text-2xl md:text-3xl">💼</span><h3 class="text-base md:text-lg text-primary">仕事・転職</h3><p class="text-[11px] md:text-xs text-on-surface-variant leading-relaxed">キャリアの選択、転職の時期、職場の人間関係。</p></div>
+        <div class="glass-card rounded-2xl p-5 md:p-6 space-y-1.5 hover:border-rose/50 transition-colors"><span class="text-2xl md:text-3xl">💰</span><h3 class="text-base md:text-lg text-primary">金運・お金</h3><p class="text-[11px] md:text-xs text-on-surface-variant leading-relaxed">お金の流れ、金運アップ、大きな決断の後押し。</p></div>
+        <div class="glass-card rounded-2xl p-5 md:p-6 space-y-1.5 hover:border-rose/50 transition-colors"><span class="text-2xl md:text-3xl">🤝</span><h3 class="text-base md:text-lg text-primary">人間関係</h3><p class="text-[11px] md:text-xs text-on-surface-variant leading-relaxed">家族、友人、職場。こじれた関係の糸口を探します。</p></div>
+        <div class="glass-card rounded-2xl p-5 md:p-6 space-y-1.5 hover:border-rose/50 transition-colors"><span class="text-2xl md:text-3xl">🩺</span><h3 class="text-base md:text-lg text-primary">健康・体調</h3><p class="text-[11px] md:text-xs text-on-surface-variant leading-relaxed">心と体のバランス、日々を整えるヒント。</p></div>
+        <div class="glass-card rounded-2xl p-5 md:p-6 space-y-1.5 hover:border-rose/50 transition-colors"><span class="text-2xl md:text-3xl">🌙</span><h3 class="text-base md:text-lg text-primary">今日の総合運</h3><p class="text-[11px] md:text-xs text-on-surface-variant leading-relaxed">今日一日をどう過ごす？ 毎朝の習慣にも。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 Methods -->
+  <section class="sec px-margin-mobile md:px-gutter" id="methods">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-8 md:mb-12 space-y-3">
+        <img class="w-32 h-32 md:w-40 md:h-40 object-contain mx-auto opacity-90" src="static/lp/icons7.png" alt="占術アイコン">
+        <p class="kicker">7つの本格占術</p>
+        <h2 class="text-2xl md:text-4xl">あなたに合った占術で、深く読み解く。</h2>
+        <p class="text-on-surface-variant text-sm md:text-base">迷ったら「おまかせ」でOK。テーマに合う占術を澪が選びます。</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div class="glass-card rounded-2xl p-4 md:p-5 flex flex-col items-center text-center gap-1.5"><span class="text-2xl md:text-3xl">🔮</span><span class="text-primary font-bold text-xs md:text-sm">タロット</span><p class="text-[11px] text-on-surface-variant">今の状況と心を読む</p></div>
+        <div class="glass-card rounded-2xl p-4 md:p-5 flex flex-col items-center text-center gap-1.5"><span class="text-2xl md:text-3xl">♒</span><span class="text-primary font-bold text-xs md:text-sm">西洋占星術</span><p class="text-[11px] text-on-surface-variant">星が導く運勢</p></div>
+        <div class="glass-card rounded-2xl p-4 md:p-5 flex flex-col items-center text-center gap-1.5"><span class="text-2xl md:text-3xl">🔢</span><span class="text-primary font-bold text-xs md:text-sm">数秘術</span><p class="text-[11px] text-on-surface-variant">数字が示す本質</p></div>
+        <div class="glass-card rounded-2xl p-4 md:p-5 flex flex-col items-center text-center gap-1.5"><span class="text-2xl md:text-3xl">☯</span><span class="text-primary font-bold text-xs md:text-sm">四柱推命</span><p class="text-[11px] text-on-surface-variant">運命の流れ</p></div>
+        <div class="glass-card rounded-2xl p-4 md:p-5 flex flex-col items-center text-center gap-1.5"><span class="text-2xl md:text-3xl">🧭</span><span class="text-primary font-bold text-xs md:text-sm">九星気学</span><p class="text-[11px] text-on-surface-variant">本命星で見る気質</p></div>
+        <div class="glass-card rounded-2xl p-4 md:p-5 flex flex-col items-center text-center gap-1.5"><span class="text-2xl md:text-3xl">🐾</span><span class="text-primary font-bold text-xs md:text-sm">干支どうぶつ占い</span><p class="text-[11px] text-on-surface-variant">あなたのキャラ</p></div>
+        <div class="glass-card rounded-2xl p-4 md:p-5 flex flex-col items-center text-center gap-1.5"><span class="text-2xl md:text-3xl">🩸</span><span class="text-primary font-bold text-xs md:text-sm">血液型相性診断</span><p class="text-[11px] text-on-surface-variant">相手との相性</p></div>
+        <div class="glass-card rounded-2xl p-4 md:p-5 flex flex-col items-center text-center justify-center gap-1.5 border-rose/40 bg-rose/5"><span class="text-2xl md:text-3xl">✨</span><span class="rose-text font-bold text-xs md:text-sm">おまかせ</span><p class="text-[11px] text-on-surface-variant">澪が自動で選ぶ</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sample reading -->
+  <section class="sec px-margin-mobile md:px-gutter bg-surface-container-low/40">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-8 md:mb-12 space-y-3">
+        <p class="kicker">たとえば、こんなふうに</p>
+        <h2 class="text-2xl md:text-4xl">あなただけの言葉が、届きます。</h2>
+      </div>
+      <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+        <div class="w-full max-w-[260px] mx-auto md:mx-0 shrink-0">
+          <img class="w-full rounded-[2.2rem] border border-outline-variant/30 shadow-[0_0_40px_rgba(60,47,79,0.9)]" src="static/lp/mio-chat.png" alt="LINEでの鑑定イメージ">
+        </div>
+        <div class="flex-1 w-full">
+          <div class="glass-soft rounded-2xl p-4 space-y-3">
+            <div class="flex gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0 text-xs">澪</div>
+              <div class="bg-surface-variant rounded-2xl rounded-tl-none p-3 text-sm">こんばんは。今日はどんなことを占いましょう？</div>
+            </div>
+            <div class="flex gap-2.5 flex-row-reverse">
+              <div class="w-8 h-8 rounded-full bg-rose/20 flex items-center justify-center text-rose-soft shrink-0"><span class="material-symbols-outlined text-base">person</span></div>
+              <div class="bg-rose/10 border border-rose/30 rounded-2xl rounded-tr-none p-3 text-sm">転職しようか、迷っていて…</div>
+            </div>
+            <div class="flex gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0 text-xs">澪</div>
+              <div class="bg-surface-variant rounded-2xl rounded-tl-none p-3 text-sm leading-relaxed">タロットで見てみましょう。中央に「運命の輪」が正位置で出ています。今はまさに、流れが動くとき。あなたの中で答えはもう決まっているみたい。焦らず、心が軽くなる方を選んでみてくださいね。</div>
+            </div>
+          </div>
+          <p class="text-xs text-on-surface-variant/70 mt-3 text-center md:text-left">※ 鑑定文はイメージです。実際は占術・テーマに合わせて生成されます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Points (magazine style) -->
+  <section class="sec px-margin-mobile md:px-gutter">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-10 md:mb-14 space-y-3"><p class="kicker">選ばれる理由</p><h2 class="text-2xl md:text-4xl">はじめての方に、選ばれています。</h2></div>
+      <div class="space-y-5 md:space-y-6">
+        <div class="glass-card rounded-2xl p-6 md:p-8 flex items-start md:items-center gap-4 md:gap-8">
+          <div class="shrink-0 text-center"><div class="hand text-rose-soft text-xs">POINT</div><div class="font-headline text-4xl md:text-6xl gold-text leading-none">01</div></div>
+          <div class="space-y-1.5"><h3 class="text-lg md:text-2xl">思い立ったら、すぐに。</h3><p class="text-on-surface-variant text-sm leading-relaxed">専用アプリのダウンロードは不要。使い慣れたLINEで、通勤中も、眠れない夜も、いつでもすぐに相談できます。</p></div>
+        </div>
+        <div class="glass-card rounded-2xl p-6 md:p-8 flex items-start md:items-center gap-4 md:gap-8 md:flex-row-reverse md:text-right">
+          <div class="shrink-0 text-center"><div class="hand text-rose-soft text-xs">POINT</div><div class="font-headline text-4xl md:text-6xl gold-text leading-none">02</div></div>
+          <div class="space-y-1.5"><h3 class="text-lg md:text-2xl">占い師さながらの、深い鑑定。</h3><p class="text-on-surface-variant text-sm leading-relaxed">7つの占術を使い分け、あなたの悩みに合わせて澪が丁寧に読み解きます。占いが初めての方にも、やさしい言葉で。</p></div>
+        </div>
+        <div class="glass-card rounded-2xl p-6 md:p-8 flex items-start md:items-center gap-4 md:gap-8">
+          <div class="shrink-0 text-center"><div class="hand text-rose-soft text-xs">POINT</div><div class="font-headline text-4xl md:text-6xl gold-text leading-none">03</div></div>
+          <div class="space-y-1.5"><h3 class="text-lg md:text-2xl">占って終わり、じゃない。</h3><p class="text-on-surface-variant text-sm leading-relaxed">鑑定結果はマイページに自動保存。運勢の推移をグラフで振り返れるから、当たった実感も、自分の成長も見えてきます。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- My Page -->
+  <section class="sec px-margin-mobile md:px-gutter bg-surface-container-low/40" id="mypage">
+    <div class="max-w-container-max mx-auto flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16">
+      <div class="flex-1 space-y-5">
+        <p class="kicker">あなただけの記録</p>
+        <h2 class="text-2xl md:text-4xl leading-snug">占って終わりじゃない。<br>“振り返れる”占い。</h2>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3"><span class="text-primary mt-0.5">✨</span><div><strong class="text-on-background block mb-0.5">運勢グラフ</strong><p class="text-on-surface-variant text-sm">日々の運勢スコアを折れ線グラフで可視化。好調の波を先読み。</p></div></li>
+          <li class="flex items-start gap-3"><span class="text-primary mt-0.5">✨</span><div><strong class="text-on-background block mb-0.5">占い日記</strong><p class="text-on-surface-variant text-sm">当たった／当たらなかった＋出来事を記録。自分だけの占いノートに。</p></div></li>
+          <li class="flex items-start gap-3"><span class="text-primary mt-0.5">✨</span><div><strong class="text-on-background block mb-0.5">パーソナルアドバイス</strong><p class="text-on-surface-variant text-sm">履歴と日記から、AIが今後の指針をそっと提案します。</p></div></li>
+        </ul>
+      </div>
+      <div class="flex-1 flex justify-center"><img class="w-full max-w-[280px] rounded-[2rem] shadow-[0_0_40px_rgba(60,47,79,0.9)] border border-outline-variant/30" src="static/lp/mypage.png" alt="マイページ ダッシュボード"></div>
+    </div>
+  </section>
+
+  <!-- Scenes -->
+  <section class="sec px-margin-mobile md:px-gutter">
+    <div class="max-w-container-max mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-16">
+      <div class="flex-1 flex justify-center"><img class="w-full max-w-md rounded-3xl border border-outline-variant/30 shadow-[0_0_40px_rgba(60,47,79,0.7)]" src="static/lp/hero-woman.png" alt="スマホで占うイメージ"></div>
+      <div class="flex-1 space-y-5">
+        <p class="kicker">あなたのペースで</p>
+        <h2 class="text-2xl md:text-4xl leading-snug">好きなときに、<br>好きなだけ。</h2>
+        <div class="space-y-3.5">
+          <div class="glass-soft rounded-xl p-4 flex items-center gap-4"><span class="material-symbols-outlined text-primary text-3xl">bedtime</span><div><strong class="block text-sm">寝る前のひととき</strong><p class="text-xs text-on-surface-variant">今日をふり返り、明日へのヒントを。</p></div></div>
+          <div class="glass-soft rounded-xl p-4 flex items-center gap-4"><span class="material-symbols-outlined text-primary text-3xl">train</span><div><strong class="block text-sm">通勤・通学の途中で</strong><p class="text-xs text-on-surface-variant">スキマ時間にサッと今日の運勢を。</p></div></div>
+          <div class="glass-soft rounded-xl p-4 flex items-center gap-4"><span class="material-symbols-outlined text-primary text-3xl">favorite</span><div><strong class="block text-sm">悩んで眠れない夜に</strong><p class="text-xs text-on-surface-variant">24時間、澪があなたの話を聞きます。</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mid CTA -->
+  <section class="px-margin-mobile md:px-gutter">
+    <div class="max-w-container-max mx-auto text-center glass-card rounded-3xl py-10 px-6 relative overflow-hidden">
+      <p class="hand text-lg md:text-xl rose-text mb-2">今日のあなたに、ひとこと。</p>
+      <h2 class="text-xl md:text-3xl mb-6">まずは無料で、占ってみませんか？</h2>
+      <a class="cta font-bold py-4 px-9 rounded-full text-base md:text-lg inline-flex items-center gap-2 w-full max-w-xs justify-center mx-auto" href="https://lin.ee/OBc87Mb"><span>🔮</span> 無料で澪に相談する</a>
+      <p class="text-xs text-primary-fixed/80 mt-3">友だち追加は無料 / 登録30秒</p>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="sec px-margin-mobile md:px-gutter" id="pricing">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-4 space-y-3">
+        <p class="kicker">料金プラン</p>
+        <h2 class="text-2xl md:text-4xl">まずは<span class="gold-text">無料</span>で。<br class="md:hidden">物足りなくなったら、いつでも。</h2>
+      </div>
+      <p class="text-center text-sm text-on-surface-variant mb-10">縛りなし・いつでも解約OK。無料プランのままずっと使うのも大歓迎です。</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+        <div class="glass-card rounded-2xl p-6 flex flex-col relative border-rose/40">
+          <span class="free-stamp absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 text-xs whitespace-nowrap">まずはここから</span>
+          <h3 class="text-lg mb-2 mt-1">無料</h3>
+          <div class="text-3xl mb-5 font-headline">¥0<span class="text-sm font-normal text-on-surface-variant"> /月</span></div>
+          <ul class="space-y-2.5 mb-7 text-sm text-on-surface-variant flex-1">
+            <li class="flex gap-2"><span class="material-symbols-outlined text-primary text-base">check</span> 月10回まで鑑定</li>
+            <li class="flex gap-2"><span class="material-symbols-outlined text-primary text-base">check</span> タロット占い</li>
+            <li class="flex gap-2"><span class="material-symbols-outlined text-outline text-base">close</span> 他の占術</li>
+            <li class="flex gap-2"><span class="material-symbols-outlined text-outline text-base">close</span> マイページ</li>
+          </ul>
+          <a class="w-full py-3 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors font-bold text-sm text-center" href="https://lin.ee/OBc87Mb">無料ではじめる</a>
+        </div>
+        <div class="glass-card rounded-2xl p-6 flex flex-col">
+          <h3 class="text-lg mb-2">スタンダード</h3>
+          <div class="text-3xl mb-5 font-headline">¥1,280<span class="text-sm font-normal text-on-surface-variant"> /月</span></div>
+          <ul class="space-y-2.5 mb-7 text-sm text-on-surface-variant flex-1">
+            <li class="flex gap-2"><span class="material-symbols-outlined text-primary text-base">check</span> 月60回まで鑑定</li>
+            <li class="flex gap-2"><span class="material-symbols-outlined text-primary text-base">check</span> 全7種の占術</li>
+            <li class="flex gap-2"><span class="material-symbols-outlined text-primary text-base">check</span> 詳細な鑑定文</li>
+            <li class="flex gap-2"><span class="material-symbols-outlined text-outline text-base">close</span> マイページ</li>
+          </ul>
+          <a class="w-full py-3 rounded-full bg-surface-variant text-on-surface hover:bg-surface-bright transition-colors font-bold text-sm text-center" href="https://lin.ee/OBc87Mb">はじめる</a>
+        </div>
+        <div class="glass-card rounded-2xl p-6 relative bg-primary-container/10 border-primary shadow-[0_0_24px_rgba(240,196,25,0.2)] flex flex-col lg:scale-105 lg:z-10">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-[#1A0F2E] px-4 py-1 rounded-full text-xs font-bold whitespace-nowrap">人気No.1</span>
+          <h3 class="text-lg mb-2 mt-1">プレミアム</h3>
+          <div class="text-3xl gold-text mb-5 font-headline">¥2,980<span class="text-sm font-normal text-on-surface-variant"> /月</span></div>
+          <ul class="space-y-2.5 mb-7 text-sm text-on-surface-variant flex-1">
+            <li class="flex gap-2"><span class="material-symbols-outlined text-primary text-base">check</span> 月300回まで鑑定</li>
+            <li class="flex gap-2"><span class="material-symbols-outlined text-primary text-base">check</span> 全7種の占術</li>
+            <li class="flex gap-2"><span class="material-symbols-outlined text-primary text-base">check</span> マイページ・運勢グラフ</li>
+            <li class="flex gap-2"><span class="material-symbols-outlined text-outline text-base">close</span> 日記・アドバイス</li>
+          </ul>
+          <a class="w-full py-3 rounded-full cta font-bold text-sm text-center" href="https://lin.ee/OBc87Mb">はじめる</a>
+        </div>
+        <div class="glass-card rounded-2xl p-6 flex flex-col">
+          <h3 class="text-lg mb-2">マックス</h3>
+          <div class="text-3xl mb-5 font-headline">¥4,980<span class="text-sm font-normal text-on-surface-variant"> /月</span></div>
+          <ul class="space-y-2.5 mb-7 text-sm text-on-surface-variant flex-1">
+            <li class="flex gap-2"><span class="material-symbols-outlined text-primary text-base">check</span> 月500回まで鑑定</li>
+            <li class="flex gap-2"><span class="material-symbols-outlined text-primary text-base">check</span> 全7種の占術</li>
+            <li class="flex gap-2"><span class="material-symbols-outlined text-primary text-base">check</span> マイページ全機能</li>
+            <li class="flex gap-2"><span class="material-symbols-outlined text-primary text-base">check</span> 日記・アドバイス</li>
+          </ul>
+          <a class="w-full py-3 rounded-full bg-surface-variant text-on-surface hover:bg-surface-bright transition-colors font-bold text-sm text-center" href="https://lin.ee/OBc87Mb">はじめる</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Steps -->
+  <section class="sec px-margin-mobile md:px-gutter bg-surface-container-low/40">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-10 md:mb-14 space-y-3"><p class="kicker">かんたん3ステップ</p><h2 class="text-2xl md:text-4xl">はじめ方は、30秒。</h2></div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
+        <div class="glass-card rounded-2xl p-7 text-center space-y-2.5"><div class="hand text-rose-soft text-sm">STEP 1</div><span class="material-symbols-outlined text-5xl text-primary">add_reaction</span><h3 class="text-lg">LINEで友だち追加</h3><p class="text-on-surface-variant text-sm">下のボタンから、澪を友だち追加。</p></div>
+        <div class="glass-card rounded-2xl p-7 text-center space-y-2.5"><div class="hand text-rose-soft text-sm">STEP 2</div><span class="material-symbols-outlined text-5xl text-primary">touch_app</span><h3 class="text-lg">テーマを選ぶ</h3><p class="text-on-surface-variant text-sm">恋愛・仕事・お金など、占いたいことをタップ。</p></div>
+        <div class="glass-card rounded-2xl p-7 text-center space-y-2.5"><div class="hand text-rose-soft text-sm">STEP 3</div><span class="material-symbols-outlined text-5xl text-primary">auto_awesome</span><h3 class="text-lg">鑑定結果が届く</h3><p class="text-on-surface-variant text-sm">あなただけの鑑定が、その場でLINEに。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety -->
+  <section class="sec px-margin-mobile md:px-gutter">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-10 md:mb-14 space-y-3"><p class="kicker">はじめてでも安心</p><h2 class="text-2xl md:text-4xl">安心して、ご利用いただくために</h2></div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="glass-soft rounded-2xl p-6 text-center space-y-2.5"><span class="material-symbols-outlined text-4xl text-primary">lock</span><h3 class="text-lg">安全な決済</h3><p class="text-xs text-on-surface-variant leading-relaxed">お支払いは世界標準のStripeを利用。カード情報を当サービスが保持することはありません。</p></div>
+        <div class="glass-soft rounded-2xl p-6 text-center space-y-2.5"><span class="material-symbols-outlined text-4xl text-primary">event_available</span><h3 class="text-lg">いつでも解約OK</h3><p class="text-xs text-on-surface-variant leading-relaxed">縛りは一切なし。LINEのメニューからいつでも解約でき、その月の期間内はご利用可能です。</p></div>
+        <div class="glass-soft rounded-2xl p-6 text-center space-y-2.5"><span class="material-symbols-outlined text-4xl text-primary">shield</span><h3 class="text-lg">プライバシー配慮</h3><p class="text-xs text-on-surface-variant leading-relaxed">鑑定に必要な範囲の情報のみをお預かりし、大切に取り扱います。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec px-margin-mobile md:px-gutter" id="faq">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-10 md:mb-14 space-y-3"><p class="kicker">よくあるご質問</p><h2 class="text-2xl md:text-4xl">はじめる前に、Q&A</h2></div>
+      <div class="space-y-3.5">
+        <details class="glass-card rounded-xl p-5 group"><summary class="flex justify-between items-center cursor-pointer font-bold text-sm md:text-base">本当に無料で使えますか？<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary><p class="text-on-surface-variant text-sm mt-3 leading-relaxed">はい。無料プランでは毎月10回まで、タロット占いを無料でご利用いただけます。有料プランへの加入は任意で、無料のままずっと使うこともできます。</p></details>
+        <details class="glass-card rounded-xl p-5 group"><summary class="flex justify-between items-center cursor-pointer font-bold text-sm md:text-base">解約はいつでもできますか？<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary><p class="text-on-surface-variant text-sm mt-3 leading-relaxed">はい。LINEのメニューからいつでも解約できます。縛りはありません。解約後も、その月の期間内はご利用いただけます。</p></details>
+        <details class="glass-card rounded-xl p-5 group"><summary class="flex justify-between items-center cursor-pointer font-bold text-sm md:text-base">支払い方法は？<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary><p class="text-on-surface-variant text-sm mt-3 leading-relaxed">クレジットカード（Visa / Mastercard / JCB / American Express）に対応。決済は安全なStripeを通じて行われます。</p></details>
+        <details class="glass-card rounded-xl p-5 group"><summary class="flex justify-between items-center cursor-pointer font-bold text-sm md:text-base">占いが当たらなかったら？<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary><p class="text-on-surface-variant text-sm mt-3 leading-relaxed">占いは未来を決めるものではなく、より良い選択のヒントです。日記機能で「当たった／当たらなかった」を記録し、自分だけの傾向を掴んでいけます。</p></details>
+        <details class="glass-card rounded-xl p-5 group"><summary class="flex justify-between items-center cursor-pointer font-bold text-sm md:text-base">スマホがあれば誰でも使えますか？<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span></summary><p class="text-on-surface-variant text-sm mt-3 leading-relaxed">LINEアプリ（iOS / Android）をお使いであれば、どなたでもすぐにご利用いただけます。専用アプリのインストールは不要です。</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="sec px-margin-mobile md:px-gutter text-center relative">
+    <div class="absolute inset-0 -z-10 opacity-35"><img class="w-full h-full object-cover" src="static/lp/tarot-hand.png" alt=""><div class="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background"></div></div>
+    <p class="hand text-lg md:text-2xl rose-text mb-3">迷ったときは、星に聞いてみて。</p>
+    <h2 class="text-2xl md:text-5xl mb-5 leading-snug">今日のあなたに、<br class="md:hidden"><span class="gold-text">星のヒント</span>を。</h2>
+    <p class="text-on-surface-variant mb-8 text-sm md:text-base">友だち追加は無料。今すぐ、最初の鑑定を受け取れます。</p>
+    <a class="cta font-bold py-4 px-10 rounded-full text-base md:text-lg inline-flex items-center gap-2 w-full max-w-xs justify-center mx-auto" href="https://lin.ee/OBc87Mb"><span>🔮</span> 無料で澪に相談する</a>
+    <div class="flex items-center justify-center gap-2 text-xs md:text-sm text-primary-fixed/90 mt-4">
+      <span class="free-stamp px-2 py-0.5 text-[11px]">友だち追加無料</span><span>登録30秒 / いつでも解約OK</span>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant/10 w-full">
+  <div class="flex flex-col md:flex-row justify-between items-center py-8 px-margin-mobile max-w-container-max mx-auto gap-4">
+    <div class="font-headline text-primary font-bold">🔮 星のヒント</div>
+    <div class="flex flex-wrap justify-center gap-4 text-sm text-on-surface-variant">
+      <a class="hover:text-primary underline decoration-primary/30 transition-colors" href="/legal/tokushoho">特定商取引法に基づく表記</a>
+      <a class="hover:text-primary underline decoration-primary/30 transition-colors" href="mailto:akimotow0810@gmail.com">お問い合わせ</a>
+    </div>
+    <div class="text-xs text-on-surface-variant">© 2025 秋元 航</div>
+  </div>
+</footer>
+
+<!-- Sticky mobile CTA -->
+<div class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-md border-t border-primary/20 px-4 py-3">
+  <a href="https://lin.ee/OBc87Mb" class="cta font-bold py-3.5 rounded-full flex items-center justify-center gap-2 w-full"><span>🔮</span> 無料で澪に相談する</a>
+</div>
+
+</body>
+</html>
